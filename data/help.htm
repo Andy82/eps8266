@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-json.min.js"></script>
+  <script type="text/javascript" src="function.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Помощь</title>
+ </head>
+ <body>
+  <div class="container">
+   <div class="row" id="content">
+    <h1 id="title">Wiki</h1>
+    <hr>
+    <h2>GET JSON</h2>
+    <h3>GET <a href="/configs.json">/configs.json</a></h3>
+    <p>Динамические данные</p>
+    <pre><code class="language-json" id="config-json">Loading...</code></pre>
+   </div>
+  </div>
+ </body>
+ <script type="text/javascript">
+  function load_request(id_element, server){
+   var xmlHttp=createXmlHttpObject();
+   xmlHttp.open('GET',server,true);
+   xmlHttp.send(null);
+   xmlHttp.onload = function() {
+    document.getElementById(id_element).innerHTML=xmlHttp.responseText;
+    Prism.highlightAll();
+   }
+  }
+  setTimeout(function(){load_request('config-json','/configs.json');},1000);
+  </script>
+
+</html>
