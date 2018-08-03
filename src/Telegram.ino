@@ -16,7 +16,7 @@ void Telegram_init()
   }, nullptr, true);
 }
 
-int Telegram_loop()
+void Telegram_loop()
 {
   m = bot.getUpdates(); // Read new messages
   if ( m.chat_id != 0 ){ // Checks if there are some updates

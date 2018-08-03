@@ -36,7 +36,7 @@ void WIFI_init() {
 
 
 //-------------- Перизапустить wifi попытаться узнать будущий ip адрес перезагрузить устройство
-bool handle_restartWiFi() {
+void handle_restartWiFi() {
   //Перезапуск Wi-Fi при первой настройке
   log("WiFi reconnect");
     WiFi.mode(WIFI_AP_STA);
@@ -150,7 +150,7 @@ boolean startAP() {
 
 // ---------------- сканирование сети на доступные точки доступа
 void handle_wifi_scan() {
-  long lastScanMillis;
+  long lastScanMillis = 0;
   long currentMillis = millis();
 
   DynamicJsonBuffer jsonBuffer;

@@ -12,7 +12,7 @@ void FS_init(void) {
     while (dir.next()) {
       String fileName = dir.fileName();
       size_t fileSize = dir.fileSize();
-      log("File: " + fileName);
+      log("File: " + fileName + " Size: " + fileSize);
     }
   }
   log("FS initialisation done");
@@ -44,7 +44,7 @@ bool handle_FileRead(String path) {
     if (SPIFFS.exists(pathWithGz))
       path += ".gz";
     File file = SPIFFS.open(path, "r");
-    size_t sent = HTTP.streamFile(file, contentType);
+    //size_t sent = HTTP.streamFile(file, contentType);
     file.close();
     return true;
   }

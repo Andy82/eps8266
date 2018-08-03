@@ -35,7 +35,7 @@ void handle_ddns() {
 }
 
 // --------------------------------Запрос для синхронизации внешнего ip адреса с ddns
-int ip_wan(String ddns) {
+void ip_wan(String ddns) {
   if (ddns != "") {
     log("Update DDNS");
     getURL(ddns);

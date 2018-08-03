@@ -53,7 +53,7 @@ void callback(const MQTT::Publish& pub)
 
   if (String(pub.topic()) == prefix + "/" + chipID + "/RELE_1_not/control") // проверяем из нужного ли нам топика пришли данные
   {
-    int stled = payload.toInt(); // преобразуем полученные данные в тип integer
+    //int stled = payload.toInt(); // преобразуем полученные данные в тип integer
     //if (stled == 1)   command = "relayon";
     //if (stled == 0)   command = "relayoff";
   }
