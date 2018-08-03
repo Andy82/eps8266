@@ -10,7 +10,7 @@ void Log_init()
 
 void log(String text)
 {
-  if (DEBUG)
+  //if (DEBUG)
     Serial.println(text);
 }
 
