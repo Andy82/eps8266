@@ -47,6 +47,13 @@ String Json::jCreate(String &json, String name, String volume) {
 
 void Json::Desirialize(String data){
     this->jsonConfig = data;
+    DynamicJsonBuffer jsonBuffer;
+    JsonObject& root = jsonBuffer.parseObject(data);
+    if (root.size() == 0) {
+        logger.log("ERROR: Can't parse JSON:");
+    } else {
+        logger.log("JSON successfully parsed");
+    }
 }
 
 String Json::Serialize()

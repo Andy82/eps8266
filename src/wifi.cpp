@@ -117,6 +117,10 @@ boolean startAP() {
   staticGateway.fromString(jConfig.jRead("getwayAP"));
   staticSubnet.fromString(jConfig.jRead("subnetAP"));
 
+  logger.log("ip AP " + jConfig.jRead("ipAP"));
+  logger.log("getway AP " + jConfig.jRead("getwayAP"));
+  logger.log("subnet AP " + jConfig.jRead("subnetAP"));
+
   // Задаем настройки сети
   WiFi.softAPConfig(apIP, staticGateway, staticSubnet);
   WiFi.softAP(ssidAPName.c_str(), ssidAPPassword.c_str());

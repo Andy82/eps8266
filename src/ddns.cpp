@@ -8,6 +8,8 @@ String ddns;
 String ddnsName;
 int ddnsPort;
 
+unsigned long startTimeDDNS = millis();
+
 void DDNS_init() {
   ddns      = jConfig.jRead("ddns");
   ddnsName  = jConfig.jRead("ddnsName");
@@ -19,6 +21,15 @@ void DDNS_init() {
     logger.log("DDNS service started.");
   }
 }
+
+void DDNS_loop()
+{
+  if (millis() - startTimeDDNS > 300000) { // run every 5 minutes
+    startTimeDDNS = millis();
+    ip_wan();
+  }
+}
+
 
 //Запрос для синхронизации внешнего ip адреса с ddns
 void ip_wan() {

@@ -27,7 +27,7 @@ void LogClass::log(String text)
 {
   if (DEBUG)
     Serial.println(GetTime() + " | " + text);
-    addLogToString(text + '\n');
+    addLogToString(GetTime() + " | " + text + '\n');
 }
 
 void LogClass::addLogToString(String text)

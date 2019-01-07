@@ -13,6 +13,8 @@ void Controller(void) {
 
     HTTP.on("/configs.json", [] () {HTTP.send(200, "application/json", jConfig.Serialize());});     // формирование configs.json страницы для передачи данных в web интерфейс
 
+    HTTP.on("/log", [] () {HTTP.send(200, "text/plain", logger.get_log());}); 
+
     // API для устройства
     HTTP.on("/wifi.scan.json", handle_wifi_scan);    // сканирование сети на доступные точки доступа
     HTTP.on("/ssdp", handle_ssdp);     // Установить имя SSDP устройства по запросу вида /ssdp?ssdp=proba
@@ -90,7 +92,7 @@ void handle_wifi_scan() {
 void handle_ssdp() {
   jConfig.jWrite("SSDPName", HTTP.arg("ssdp")); // Получаем значение ssdp из запроса сохраняем в глобальной переменной
   jConfig.jWrite("space", HTTP.arg("space"));
-  jConfig.Save();               // Функция сохранения данных во Flash
+  //jConfig.Save();               // Функция сохранения данных во Flash
   HTTP.send(200, "text/plain", "OK"); // отправляем ответ о выполнении
 }
 
@@ -104,7 +106,7 @@ void handle_ssid() {
   jConfig.jWrite("ip", HTTP.arg("ip"));
   jConfig.jWrite("predefinedIp", HTTP.arg("checkboxIP"));
   logger.log("Wifi network changed");
-  jConfig.Save();                           // Функция сохранения данных во Flash
+  //jConfig.Save();                           // Функция сохранения данных во Flash
   HTTP.send(200, "text/plain", "OK");   // отправляем ответ о выполнении
 }
 
@@ -112,7 +114,7 @@ void handle_ssid() {
 void handle_ssidap() {  
   jConfig.jWrite("ssidAPName", HTTP.arg("ssidAP"));
   jConfig.jWrite("ssidAPPassword",  HTTP.arg("passwordAP")); 
-  jConfig.Save();
+  //jConfig.Save();
   HTTP.send(200, "text/plain", "OK");   // отправляем ответ о выполнении
 }
 
@@ -131,7 +133,7 @@ void handle_restart() {
 void handle_wifi(){
   jConfig.jWrite("tries", HTTP.arg("connect"));
   jConfig.jWrite("blink", HTTP.arg("blink"));
-  jConfig.Save();
+  //jConfig.Save();
   HTTP.send(200, "text/plain", "Ok");
 }
 
@@ -162,7 +164,7 @@ void handle_ddns() {
     jConfig.jWrite("ddns",      HTTP.arg("ddns"));
     jConfig.jWrite("ddnsName",  HTTP.arg("ddnsName"));
     jConfig.jWrite("ddnsPort",  HTTP.arg("ddnsPort"));
-    jConfig.Save();
+    //jConfig.Save();
     ip_wan();
     HTTP.send(200, "text/plain", "OK");
 }
@@ -173,7 +175,7 @@ void handle_Set_MQTT() {
     jConfig.jWrite("mqttPort",   HTTP.arg("port"));
     jConfig.jWrite("mqttUser",   HTTP.arg("user"));
     jConfig.jWrite("mqttPass",   HTTP.arg("pass"));
-    jConfig.Save();
+    //jConfig.Save();
     MQTT_Disconnect();
     MQTT_Pablush();
     HTTP.send(200, "text/plain", "OK");  
@@ -182,7 +184,7 @@ void handle_Set_MQTT() {
 // Установка параметров времянной зоны по запросу вида http://192.168.0.101/TimeZone?timezone=3
 void handle_time_zone() {
   jConfig.jWrite("timezone", HTTP.arg("timezone"));
-  jConfig.Save();
+  //jConfig.Save();
   HTTP.send(200, "text/plain", "OK");
 }
 

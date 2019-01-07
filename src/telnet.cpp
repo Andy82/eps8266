@@ -3,6 +3,8 @@
 
 WiFiServer telnetServer(23);
 WiFiClient serverClient;
+String lastLogRow = "";
+uint16_t lastLogRowId = 0;
 
 unsigned long startTime = millis();
 
@@ -36,10 +38,34 @@ void Telnet_loop() {
 
     if (serverClient && serverClient.connected()) 
     {  // send data to Client
-      serverClient.print("Telnet Test, millis: ");
-      serverClient.println(millis());
-      serverClient.println(logger.get_log());
+      Telnet_PrintLog();
     }
   }
   delay(10);  // to avoid strange characters left in buffer
+}
+
+void Telnet_PrintLog()
+{
+  uint16_t len = logger.lines();
+
+  while (logger.line(len) == "" && len >0)
+  {
+    len--;
+  }
+
+  if (lastLogRowId == len && logger.line(lastLogRowId) != lastLogRow )
+  {
+    while (logger.line(lastLogRowId) != lastLogRow && lastLogRowId>0)
+    {
+      lastLogRowId--;
+    }
+  }
+
+  for (uint16_t i=lastLogRowId; i<len; i++)
+  {
+      serverClient.println(logger.line(i));
+  }
+
+  lastLogRowId = len;
+  lastLogRow = logger.line(lastLogRowId);
 }

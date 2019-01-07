@@ -4,5 +4,6 @@
 
 void Telnet_Init();
 void Telnet_loop();
+void Telnet_PrintLog();
 
 #endif

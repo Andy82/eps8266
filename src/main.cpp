@@ -15,7 +15,7 @@
 #include <timeticker.h>
 #include <web.h>
 #include <websocket.h>
-//#include <update.h>
+#include <update.h>
 #include <mqtt.h>
 #include <mdns.h>
 
@@ -36,7 +36,7 @@ void setup() {
   Ftp_init();
   MQTT_init();
   DDNS_init();
-  //Update_init();
+  Update_init();
   WebSocket_init();
   mDNS_init();
   TimeTicker_init();
@@ -54,6 +54,7 @@ void loop() {
   WebSocket_loop();
   //Telegram_loop();
   TimeTicker_loop();
+  DDNS_loop();
   logger.Serial_loop();
   yield();
 }
