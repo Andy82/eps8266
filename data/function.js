@@ -18,10 +18,6 @@ function load(){
    loadBlock();
   }
  }
-<<<<<<< HEAD
-}
-
-=======
  socket();
 }
 
@@ -60,7 +56,6 @@ function socket()
 }
 
 
->>>>>>> Initial
 function loadBlock(data2) {
  data2 = JSON.parse(xmlHttp.responseText);
  data = document.getElementsByTagName('body')[0].innerHTML;
