@@ -29,8 +29,13 @@
 StringCommand::StringCommand()
   : commandList(NULL),
     commandCount(0),
+<<<<<<< HEAD
     last(NULL),
     defaultHandler(NULL)
+=======
+    defaultHandler(NULL),
+    last(NULL)
+>>>>>>> Initial
 {
   strcpy(delim, "|"); // strtok_r needs a null-terminated string
   clearBuffer();

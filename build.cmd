@@ -1,0 +1,1 @@
+c:\Users\Andrei\.platformio\penv\Scripts\platformio run --verbose --target upload --target monitor

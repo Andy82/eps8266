@@ -5,15 +5,28 @@
   <link rel="stylesheet" href="/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script type="text/javascript" src="/function.js"></script>
+<<<<<<< HEAD
+=======
+  <script type="text/javascript" src="/jquery-1.12.4.min.js"></script>
+  
+>>>>>>> Initial
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Доп. настройки</title>
   <script type="text/javascript">
    var set_real_time;
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function handleServerResponse(){
     clearTimeout(set_real_time);
     var res = jsonResponse.time.split(":");
     real_time(hours=res[0],min=res[1],sec=res[2]);
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function real_time(hours,min,sec) {
    sec=Number(sec)+1;
     if (sec>=60){min=Number(min)+1;sec=0;}
@@ -22,15 +35,27 @@
     document.getElementById("time").innerHTML = hours+":"+min+":"+sec;
     set_real_time = setTimeout("real_time("+hours+","+min+","+sec+");", 1000);
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function load_time(submit){
     server = "/time";
     send_request(submit,server);
     load();
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function time_zone(submit){
     server = "/timezone?timezone="+val('timezone');
     send_request(submit,server);
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function set_time_zone(submit){
     var set_date = new Date();
     var gmtHours = -set_date.getTimezoneOffset()/60;
@@ -38,29 +63,53 @@
     server = "/timezone?timezone="+gmtHours;
     send_request(submit,server);
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function set_ssid(submit){
     server = "/ssid?ssid="+val('ssid')+"&password="+encodeURIComponent(val('password'));
     send_request(submit,server);
     alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function set_ssid_ap(submit){
     server = "/ssidap?ssidAP="+val('ssidap')+"&passwordAP="+encodeURIComponent(val('passwordAp'));
     send_request(submit,server);
     alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function set_ssdp(submit){
     server = "/ssdp?ssdp="+val('ssdp');
     send_request(submit,server);
     document.getElementById('ssdp_t').innerHTML = val('ssdp');
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function set_ddns(submit){
     server = "/ddns?ddns="+val('ddns-server')+"&ddnsName=" +val('ddns-name') + "&ddnsPort="  +val('ddns-port');
     send_request(submit,server);
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function set_mqtt(submit){
     server = "/mqtt?server="+val('mqtt-server')+"&port=" +val('mqtt-port') + "&user="  +val('mqtt-user') +"&pass="+encodeURIComponent(val('mqtt-pass'));
     send_request(submit,server);
    }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> Initial
    function restart(submit,texts){
     if (confirm(texts)) {
 	 server = "/restart?device=ok";
@@ -70,6 +119,10 @@
      return false;
     }
    }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> Initial
   </script>
  </head>
  <body onload="load();">
@@ -153,6 +206,12 @@
          class="btn btn-block btn-success" value="Сохранить" type="button">
     <hr>
     <input class="btn btn-block btn-warning" value="Перезагрузить устройство" onclick="restart(this,'Вы действительно хотите перезагрузить устройство?');" type="submit">
+<<<<<<< HEAD
+=======
+	
+	<p align="center">Время : <a id="time"></a></p>
+	
+>>>>>>> Initial
      <!--<a class="btn btn-block btn-default" href="/device.htm">Страница управления</a> -->
     </div>
    </div>

@@ -18,8 +18,49 @@ function load(){
    loadBlock();
   }
  }
+<<<<<<< HEAD
 }
 
+=======
+ socket();
+}
+
+function socket()
+{
+	var socket = new WebSocket("ws://" + window.location.host + ":81");
+	socket.onopen = function() {
+	  socket.send('Connect ' + new Date());
+	  console.log('Connect ' + new Date());
+	};
+
+	socket.onclose = function(event) {
+	  if (event.wasClean) {
+		console.log('Connection closed');
+	  } else {
+		console.log('Server disconnected'); 
+	  }
+	};
+
+	socket.onmessage = function(event) {
+	  console.log('Server: ', event.data);
+	  //socket.send( "Thank you, Mr. server!" );
+	  
+	    var socket_data=JSON.parse(event.data);
+		document.getElementById('timeX').innerHTML = socket_data.time;
+		
+		console.log('Time: ', socket_data.time);
+	  
+	  setInterval(function(){ $.getJSON('config.json', function(socket_data) { document.getElementById("timeX").innerHTML=socket_data.time; }); },1000);
+	  
+	};
+
+	socket.onerror = function(error) {
+	  console.log('WebSocket Error ', error);
+	};	
+}
+
+
+>>>>>>> Initial
 function loadBlock(data2) {
  data2 = JSON.parse(xmlHttp.responseText);
  data = document.getElementsByTagName('body')[0].innerHTML;

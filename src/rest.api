@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 #Ctrl+Alt+R
 http://192.168.0.2/configs.json
 http://192.168.0.2/wifi.scan.json
+=======
+#Ctrl+Alt+R
+http://192.168.0.2/configs.json
+http://192.168.0.2/wifi.scan.json
+>>>>>>> Initial
 http://192.168.0.5/cmd?command=print|cmd
