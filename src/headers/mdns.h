@@ -3,5 +3,5 @@
 #include "globals.h"
 
 void mDNS_init();
-
+void mDNS_loop(); 
 #endif

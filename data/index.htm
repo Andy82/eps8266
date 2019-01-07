@@ -59,9 +59,9 @@
    }
    
    function set_ssdp(submit){
-    server = "/ssdp?ssdp="+val('ssdp');
+    server = "/deviceName?deviceName="+val('deviceName');
     send_request(submit,server);
-    document.getElementById('ssdp_t').innerHTML = val('ssdp');
+    document.getElementById('ssdp_t').innerHTML = val('deviceName');
    }
    
    function set_ddns(submit){

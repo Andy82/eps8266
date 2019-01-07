@@ -55,6 +55,7 @@ void loop() {
   //Telegram_loop();
   TimeTicker_loop();
   DDNS_loop();
+  mDNS_loop();
   logger.Serial_loop();
   yield();
 }

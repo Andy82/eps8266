@@ -17,5 +17,4 @@ void Config_updateSysytemParameters()
   jConfig.jWrite("ip", WiFi.localIP().toString());
   jConfig.jWrite("chipID", chipID); 
   jConfig.jWrite("sketchMD5", ESP.getSketchMD5()); 
-  //jConfig.Save();
 }

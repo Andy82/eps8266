@@ -17,7 +17,7 @@ void Controller(void) {
 
     // API для устройства
     HTTP.on("/wifi.scan.json", handle_wifi_scan);    // сканирование сети на доступные точки доступа
-    HTTP.on("/ssdp", handle_ssdp);     // Установить имя SSDP устройства по запросу вида /ssdp?ssdp=proba
+    HTTP.on("/deviceName", handle_ssdp);     // Установить имя SSDP устройства по запросу вида /deviceName?deviceName=proba
     HTTP.on("/ssid", handle_ssid);     // Установить имя и пароль роутера по запросу вида /ssid?ssid=home2&password=12345678
     HTTP.on("/ssidap", handle_ssidap); // Установить имя и пароль для точки доступа по запросу вида /ssidap?ssidAP=home1&passwordAP=8765439
     HTTP.on("/restartWiFi", handle_restartWiFi); //TODO: Implement //Перизапустить wifi попытаться узнать будущий ip адрес перезагрузить устройство
@@ -90,7 +90,7 @@ void handle_wifi_scan() {
 // Функции API-Set
 // Установка SSDP имени по запросу вида http://192.168.0.101/ssdp?ssdp=proba
 void handle_ssdp() {
-  jConfig.jWrite("SSDPName", HTTP.arg("ssdp")); // Получаем значение ssdp из запроса сохраняем в глобальной переменной
+  jConfig.jWrite("deviceName", HTTP.arg("deviceName")); // Получаем значение ssdp из запроса сохраняем в глобальной переменной
   jConfig.jWrite("space", HTTP.arg("space"));
   //jConfig.Save();               // Функция сохранения данных во Flash
   HTTP.send(200, "text/plain", "OK"); // отправляем ответ о выполнении
