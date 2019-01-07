@@ -17,7 +17,6 @@
 #include <websocket.h>
 #include <update.h>
 #include <mqtt.h>
-#include <mdns.h>
 
 
 void setup() {
@@ -38,7 +37,6 @@ void setup() {
   DDNS_init();
   Update_init();
   WebSocket_init();
-  mDNS_init();
   TimeTicker_init();
   Config_updateSysytemParameters();
   logger.log("================= Init completed =================");
@@ -55,7 +53,6 @@ void loop() {
   //Telegram_loop();
   TimeTicker_loop();
   DDNS_loop();
-  mDNS_loop();
   logger.Serial_loop();
   yield();
 }
