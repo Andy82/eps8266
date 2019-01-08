@@ -16,11 +16,17 @@ String mqttPass;
 
 void MQTT_init() 
 {
-  mqttServer    = jConfig.jRead("mqttServer");
-  mqttPort      = jConfig.jRead("mqttPort").toInt();
-  mqttUser      = jConfig.jRead("mqttUser");
-  mqttPass      = jConfig.jRead("mqttPass");
+//  mqttServer    = jConfig.jRead("mqttServer");
+//  mqttPort      = jConfig.jRead("mqttPort").toInt();
+//  mqttUser      = jConfig.jRead("mqttUser");
+//  mqttPass      = jConfig.jRead("mqttPass");
   mqttId        = jConfig.jRead("chipID");
+
+  mqttServer    = "io.adafruit.com";
+  mqttPort      = 1883;
+  mqttUser      = "Andy82";
+  mqttPass      = "c5a47d0abe2948cc91f7670c8d809ed5";
+
 
   logger.log("mqttServer =" + mqttServer); 
   logger.log("mqttPort =" + String(mqttPort)); 
@@ -52,7 +58,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   logger.logFlash(1, 500);
   // выводим в сериал порт название топика и значение полученных данных
   logger.log("Message arrived [" + String(topic) + " ]=> ");
-
   String sPayload = String((char *)payload);
   logger.log(sPayload);
 

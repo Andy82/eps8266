@@ -7,17 +7,15 @@ void mDNS_init()
 
     deviceName = jConfig.jRead("deviceName");
     deviceName.toLowerCase();
-    if (!MDNS.begin((char *)deviceName.c_str())) 
+    if (!MDNS.begin((char *)deviceName.c_str(),WiFi.localIP())) 
     {   // Start the mDNS responder for esp8266.local
       logger.log("Error setting up MDNS responder!");
     } else
     {
       logger.log("MDNS server started for " + deviceName + ".local");
     }
-
-
-      // Add service to MDNS-SD
       MDNS.addService("http", "tcp", 80);
+      MDNS.addService("ws", "tcp", 81);
 }
 
 void mDNS_loop() {
