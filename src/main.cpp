@@ -16,8 +16,8 @@
 #include <web.h>
 #include <websocket.h>
 #include <update.h>
-#include <mqtt.h>
 #include <mdns.h>
+
 
 void setup() {
   logger.log("================= Init started =================");
@@ -33,7 +33,7 @@ void setup() {
   HTTP_init();
   SSDP_init();
   Ftp_init();
-  MQTT_init();
+  mqtt.setup();
   DDNS_init();
   Update_init();
   WebSocket_init();
@@ -48,7 +48,7 @@ void loop() {
   Telnet_loop();
   Cmd_loop();
   HTTP_loop();
-  MQTT_loop();
+  mqtt.loop();
   Ftp_Loop();
   WebSocket_loop();
   //Telegram_loop();

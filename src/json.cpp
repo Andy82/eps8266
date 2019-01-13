@@ -49,7 +49,7 @@ void Json::Desirialize(String data){
     this->jsonConfig = data;
     DynamicJsonBuffer jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(data);
-    if (root.size() == 0) {
+    if (!root.success()) {
         logger.log("ERROR: Can't parse JSON:");
     } else {
         logger.log("JSON successfully parsed");

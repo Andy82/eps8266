@@ -7,7 +7,7 @@
 #include <mqtt.h>
 #include <sspd.h>
 #include <web.h>
-
+#include <commands.h>
 
 void Controller(void) {
 
@@ -43,7 +43,7 @@ void Controller(void) {
     HTTP.on("/ddns", handle_ddns);
 
     //Выполнение команды из запроса
-    HTTP.on("/cmd", HTTP_GET, []() { sCmd.runCommand(HTTP.arg("command"), HttpCallback);  });
+    HTTP.on("/cmd", HTTP_GET, []() { runCommand(HTTP.arg("command"), HttpCallback);  });
 
     //called when the url is not defined here
     //use it to load content from SPIFFS
@@ -176,8 +176,7 @@ void handle_Set_MQTT() {
     jConfig.jWrite("mqttUser",   HTTP.arg("user"));
     jConfig.jWrite("mqttPass",   HTTP.arg("pass"));
     //jConfig.Save();
-    MQTT_Disconnect();
-    MQTT_Pablush();
+    mqtt.mqttReconnect();
     HTTP.send(200, "text/plain", "OK");  
 }
 

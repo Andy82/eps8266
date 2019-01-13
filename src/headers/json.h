@@ -1,6 +1,5 @@
 #ifndef JSON_H
 #define JSON_H
-#include <Arduino.h>
 #include <ArduinoJson.h>
 
 class Json {

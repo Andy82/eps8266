@@ -1,5 +1,5 @@
-#include <StringCommand.h>
 #include <commands.h>
+#include <StringCommand.h>
 
 StringCommand sCmd;
 
@@ -25,4 +25,8 @@ String printTest(char *attrib) {
 
 void unrecognized(const char *command) {
   logger.log("Command " + String(command) + " not recodnized.");
+}
+
+void runCommand(String command, void (*callbackFunction)(String)) {
+  sCmd.runCommand(command, callbackFunction);
 }

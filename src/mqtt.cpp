@@ -1,115 +1,117 @@
 #include <PubSubClient.h>
 #include <mqtt.h>
-#include <StringCommand.h>
 
-const char* prefix   = "/IoTmanager";
+/*
+ * ESPWebMQTTBase class implementation
+ */
 
-// Для поиска других устройств по протоколу SSDP
-WiFiClient espClient;
-PubSubClient client(espClient);
-
-String mqttServer;
-int mqttPort;
-String mqttId;
-String mqttUser;
-String mqttPass;
-
-void MQTT_init() 
-{
-//  mqttServer    = jConfig.jRead("mqttServer");
-//  mqttPort      = jConfig.jRead("mqttPort").toInt();
-//  mqttUser      = jConfig.jRead("mqttUser");
-//  mqttPass      = jConfig.jRead("mqttPass");
-  mqttId        = jConfig.jRead("chipID");
-
-  mqttServer    = "io.adafruit.com";
-  mqttPort      = 1883;
-  mqttUser      = "Andy82";
-  mqttPass      = "c5a47d0abe2948cc91f7670c8d809ed5";
-
-
-  logger.log("mqttServer =" + mqttServer); 
-  logger.log("mqttPort =" + String(mqttPort)); 
-  logger.log("mqttUser =" + String(mqttUser)); 
-  logger.log("mqttPass =" + String(mqttPass)); 
-  logger.log("mqttId =" + String(mqttId)); 
-
-  MQTT_Pablush();
-  if (client.connected()) {
-    logger.log("Connected to MQTT");
-  } else {
-    logger.log("Can't connect MQTT server");
-  }
+ESPMQTT::ESPMQTT() {
+  _espClient = new WiFiClient();
+  pubSubClient = new PubSubClient(*_espClient);
 }
 
-void  MQTT_loop() {
-  if (client.connected()) {
-    client.loop();
-  }
-  else
-  {
-    //TODO: Set delay
-    MQTT_Pablush();
-  }
+ESPMQTT::~ESPMQTT() {
+  pubSubClient->disconnect();
 }
 
 
-void callback(char* topic, byte* payload, unsigned int length) {
+void ESPMQTT::setup() {
+  _mqttServer    = jConfig.jRead("mqttServer");
+  _mqttPort      = jConfig.jRead("mqttPort").toInt();
+  _mqttUser      = jConfig.jRead("mqttUser");
+  _mqttPassword  = jConfig.jRead("mqttPass");
+  _mqttClient        = jConfig.jRead("chipID");
+
+  logger.log("mqttServer =" + _mqttServer); 
+  logger.log("mqttPort =" + String(_mqttPort)); 
+  logger.log("mqttUser =" + String(_mqttUser)); 
+  logger.log("mqttPass =" + String(_mqttPassword)); 
+  logger.log("mqttId =" + String(_mqttClient)); 
+
+  if (_mqttServer.length() > 0 && WiFi.status() == WL_CONNECTED)  {
+    pubSubClient->setServer((char *)_mqttServer.c_str(), _mqttPort);
+    // подключаемся к MQTT серверу
+      if (!pubSubClient->connected()) 
+      {
+          if (pubSubClient->connect((char *)_mqttClient.c_str(), (char *)_mqttUser.c_str(), (char *)_mqttPassword.c_str())) 
+          {
+            pubSubClient->setCallback(std::bind(&ESPMQTT::mqttCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+          } 
+    }
+  }
+  if (pubSubClient->connected()) {
+      logger.log("Connected to MQTT");
+    } else {
+      logger.log("Can't connect MQTT server");
+  }
+}
+
+void ESPMQTT::loop() {
+  if ((_mqttServer != "") && ((WiFi.getMode() == WIFI_STA) && (WiFi.status() == WL_CONNECTED))) {
+    if (! pubSubClient->connected())
+      logger.log("Reconnecting to the MQTT server");
+      mqttReconnect();
+    if (pubSubClient->connected())
+      pubSubClient->loop();
+  }
+}
+
+
+void ESPMQTT::mqttCallback(char* topic, byte* payload, unsigned int length) {
   logger.logFlash(1, 500);
   // выводим в сериал порт название топика и значение полученных данных
   logger.log("Message arrived [" + String(topic) + " ]=> ");
   String sPayload = String((char *)payload);
   logger.log(sPayload);
-
-  if (String(topic) =="cmd") {
-    sCmd.runCommand(sPayload, MQTT_Send);
-  }
-
-  if (String(topic) == String(prefix) + "/" + mqttId + "/RELE_1_not/control") // проверяем из нужного ли нам топика пришли данные
-  {
-    if ((char)payload[0] == '1')
-    {}
-
-  }
+  //if (String(topic) =="cmd") {
+  //if ((char)payload[0] == '1')
 }
 
+bool ESPMQTT::mqttReconnect() {
+  const uint32_t timeout = 30000;
 
+  static uint32_t nextTime;
+  bool result = false;
 
-void MQTT_Pablush() {
-  if (mqttServer.length() > 0)
-  {
-    client.setServer((char *)mqttServer.c_str(), mqttPort);
-    // подключаемся к MQTT серверу
-    if (WiFi.status() == WL_CONNECTED) 
-    {
-      if (!client.connected()) 
-      {
-          if (client.connect((char *)mqttId.c_str(), (char *)mqttUser.c_str(), (char *)mqttPass.c_str())) {
-          client.setCallback(callback);
-          client.subscribe(prefix);  // Для приема получения HELLOW и подтверждения связи
-          client.subscribe("cmd"); 
-          client.subscribe((String(prefix) + "/+/+/control").c_str()); // Подписываемся на топики control
-        } 
-      }
+  if ((int32_t)(millis() - nextTime) >= 0) {
+    logger.log(F("Attempting MQTT connection..."));
+    //enablePulse(PULSE);
+    if (_mqttUser != "")
+      result =  pubSubClient->connect(_mqttClient.c_str(), _mqttUser.c_str(), _mqttPassword.c_str());
+    else
+      result = pubSubClient->connect(_mqttClient.c_str());
+//    enablePulse(WiFi.getMode() == WIFI_STA ? BREATH : FADEIN);
+    //enablePulse(BREATH);
+    if (result) {
+      logger.log(F(" connected"));
+      mqttResubscribe();
+    } else {
+      logger.log(" failed, rc=" + String(pubSubClient->state()));
     }
+    nextTime = millis() + timeout;
+  }
+
+  return result;
+}
+
+
+void ESPMQTT::mqttResubscribe() {
+  String topic;
+
+  if (_mqttClient != "") {
+    topic += "charSlash";
+    topic += _mqttClient;
+    topic += F("/#");
+    mqttSubscribe(topic);
   }
 }
 
-void MQTT_Disconnect()
-{
-  client.disconnect();
+bool ESPMQTT::mqttSubscribe(const String& topic) {
+    logger.log("MQTT subscribe to " + topic);
+    return pubSubClient->subscribe(topic.c_str());
 }
 
-
-void MQTT_Send(String command)
-{
-    client.publish("test/temp", command.c_str());
+bool ESPMQTT::mqttPublish(const String& topic, const String& value) {
+    logger.log("MQTT publish topic " + topic + " vaule: " + value);
+    return pubSubClient->publish(topic.c_str(), value.c_str());
 }
-
-
-void MQTT_TestSend()
-{
-    client.publish("test/temp","Testing MQTT");
-}
-
-
