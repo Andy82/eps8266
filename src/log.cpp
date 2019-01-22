@@ -26,7 +26,14 @@ void LogClass::init_flash()
 void LogClass::log(String text)
 {
   if (DEBUG)
-    Serial.println(GetTime() + " | " + text);
+    Serial.println(String(GetTime() + " | " + text);
+    addLogToString(GetTime() + " | " + text + '\n');
+}
+
+void LogClass::log(const char *text)
+{
+  if (DEBUG)
+    Serial.println(String(millis()) + " | " + GetTime() + " | " + text);
     addLogToString(GetTime() + " | " + text + '\n');
 }
 

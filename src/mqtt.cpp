@@ -99,7 +99,7 @@ void ESPMQTT::mqttResubscribe() {
   String topic;
 
   if (_mqttClient != "") {
-    topic += "charSlash";
+    topic += "/IoTmanager/";
     topic += _mqttClient;
     topic += F("/#");
     mqttSubscribe(topic);

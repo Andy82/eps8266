@@ -13,6 +13,7 @@ public:
     LogClass(const Stream* duplicate, bool debug);
     void logFlash(int times, int ms);
     void log(String text);
+    void log(const char *text);
 
     void clear() 
     {
