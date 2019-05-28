@@ -57,9 +57,8 @@ void handle_wifi_scan() {
   long currentMillis = millis();
   String jsonWifiNetworks = "";
 
-  DynamicJsonBuffer jsonBuffer;
-  JsonObject& json = jsonBuffer.createObject();
-  JsonArray& networks = json.createNestedArray("networks");
+  DynamicJsonDocument jsonBuffer(1024);
+  JsonArray networks = jsonBuffer.createNestedArray("networks");
 
   // trigger Wi-Fi network scan
   if (currentMillis - lastScanMillis > 10000)
@@ -69,7 +68,7 @@ void handle_wifi_scan() {
     lastScanMillis = currentMillis;
     logger.log(String(n) + " network(s) found");
     for (int i = 0; i < n; i++) {
-      JsonObject& data = networks.createNestedObject();
+      JsonObject data = networks.createNestedObject();
       data["ssid"] = WiFi.SSID(i);
       data["pass"] = (WiFi.encryptionType(i) == ENC_TYPE_NONE) ? "" : "*";
       data["dbm"] = WiFi.RSSI(i);
@@ -80,7 +79,8 @@ void handle_wifi_scan() {
       logger.log(String(i+1) + ": " + WiFi.SSID(i).c_str() + ", Ch: " + String(WiFi.channel(i)) + " (" + String(WiFi.RSSI(i)) + " mDb)");
     }
     jsonWifiNetworks = "";
-    json.printTo(jsonWifiNetworks);
+    //json.printTo(jsonWifiNetworks);
+    serializeJsonPretty(jsonBuffer, jsonWifiNetworks);
     WiFi.scanDelete();
   }
   HTTP.send(200, "application/json", jsonWifiNetworks);

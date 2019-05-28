@@ -48,9 +48,11 @@ void ESPMQTT::setup() {
 
 void ESPMQTT::loop() {
   if ((_mqttServer != "") && ((WiFi.getMode() == WIFI_STA) && (WiFi.status() == WL_CONNECTED))) {
-    if (! pubSubClient->connected())
-      logger.log("Reconnecting to the MQTT server");
-      mqttReconnect();
+    if (!pubSubClient->connected())
+    {
+        logger.log("Reconnecting to the MQTT server");
+        mqttReconnect();
+    }
     if (pubSubClient->connected())
       pubSubClient->loop();
   }

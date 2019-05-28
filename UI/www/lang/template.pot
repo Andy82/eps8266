@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: www/partials/panels/files.html:8
+msgid "Abort"
+msgstr ""
+
+#: www/partials/panels/commands.html:17
+msgid "Autoscroll"
+msgstr ""
+
+#: www/partials/panels/temp.html:42
+msgid "Bed"
+msgstr ""
+
+#: www/partials/panels/commands.html:6
+msgid "Clear"
+msgstr ""
+
+#: www/partials/panels/commands.html:4
+msgid "Commands"
+msgstr ""
+
+#: www/partials/panels/motor.html:6
+msgid "Controls"
+msgstr ""
+
+#: www/partials/panels/files.html:20
+msgid "Delete"
+msgstr ""
+
+#: www/partials/panels/extruder.html:25
+#: www/partials/panels/extruder.html:32
+msgid "Extrude"
+msgstr ""
+
+#: www/partials/panels/extruder.html:23
+msgid "Extruder T0"
+msgstr ""
+
+#: www/partials/panels/extruder.html:30
+msgid "Extruder T1"
+msgstr ""
+
+#: www/partials/panels/extruder.html:6
+msgid "Extruders"
+msgstr ""
+
+#: www/partials/panels/files.html:4
+msgid "Files"
+msgstr ""
+
+#: www/partials/panels/commands.html:18
+msgid "Filter temperatures"
+msgstr ""
+
+#: www/partials/panels/temp.html:24
+msgid "Heater T0"
+msgstr ""
+
+#: www/partials/panels/temp.html:33
+msgid "Heater T1"
+msgstr ""
+
+#: www/partials/navbar.html:8
+msgid "Language:"
+msgstr ""
+
+#: www/partials/panels/motor.html:18
+msgid "Motors off"
+msgstr ""
+
+#: www/partials/panels/extruder.html:17
+#: www/partials/panels/temp.html:17
+msgid "Name"
+msgstr ""
+
+#: www/partials/panels/extruder.html:18
+#: www/partials/panels/temp.html:18
+msgid "Options"
+msgstr ""
+
+#: www/partials/panels/files.html:21
+msgid "Print"
+msgstr ""
+
+#: www/partials/panels/files.html:7
+msgid "Progress"
+msgstr ""
+
+#: www/partials/panels/files.html:6
+msgid "Refresh"
+msgstr ""
+
+#: www/partials/panels/extruder.html:26
+#: www/partials/panels/extruder.html:33
+msgid "Reverse"
+msgstr ""
+
+#: www/partials/panels/commands.html:15
+msgid "Send"
+msgstr ""
+
+#: www/partials/panels/commands.html:14
+msgid "Send Command..."
+msgstr ""
+
+#: www/partials/panels/extruder.html:41
+msgid "Settings"
+msgstr ""
+
+#: www/partials/panels/motor.html:16
+msgid "Speed:"
+msgstr ""
+
+#: www/partials/panels/temp.html:6
+msgid "Temperatures"
+msgstr ""
+
+#: www/partials/panels/files.html:9
+msgid "Upload"
+msgstr ""
+
+#: www/partials/panels/temp.html:19
+msgid "Value | Target"
+msgstr ""
+
+#: www/partials/panels/temp.html:8
+msgid "auto-check every:"
+msgstr ""
+
+#: www/partials/panels/extruder.html:8
+msgid "enable second extruder"
+msgstr ""
+
+#: www/partials/panels/temp.html:8
+msgid "sec"
+msgstr ""

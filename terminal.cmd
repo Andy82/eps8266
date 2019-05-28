@@ -1,1 +1,1 @@
-c:\Users\Andrei\.platformio\penv\Scripts\platformio run --target monitor
+%userprofile%\.platformio\penv\Scripts\platformio run --target monitor

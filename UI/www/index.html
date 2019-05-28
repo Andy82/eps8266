@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="smoothieApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Smoothieware WebUI</title>
+
+        <link href="lib/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet">
+
+        <!--removeIf(production)-->
+        <link href="lib/angular-xeditable/dist/css/xeditable.min.css" rel="stylesheet">
+        <link href="css/sb-admin-2.css" rel="stylesheet">
+        <!--endRemoveIf(production)-->
+
+        <!-- smoosh -->
+        <link href="css/style.css" rel="stylesheet">
+        <!-- endsmoosh -->
+    </head>
+
+<body>
+    <div id="wrapper">
+
+        <!-- navbar -->
+        <ng-include src="'partials/navbar.html'"></ng-include>
+        <!-- / navbar -->
+
+        <div id="page-wrapper">
+            <div class="row">
+                <ng-include src="'partials/panels/motor.html'"></ng-include>
+
+                <ng-include src="'partials/panels/temp.html'"></ng-include>
+
+                <ng-include src="'partials/panels/extruder.html'"></ng-include>
+
+                <ng-include src="'partials/panels/files.html'"></ng-include>
+
+                <ng-include src="'partials/panels/commands.html'"></ng-include>
+            </div>
+         </div>
+    </div>
+
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/angular-gettext/dist/angular-gettext.min.js"></script>
+    <script src="lib/angular-xeditable/dist/js/xeditable.min.js"></script>
+    <script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="lib/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="lib/Chart.js/dist/Chart.js"></script>
+
+    <!--removeIf(production)-->
+    <script src="lib/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="lib/angular-mocks/angular-mocks.js"></script>
+    <script src="lib/angular-scroll-glue/src/scrollglue.js"></script>
+    <!--endRemoveIf(production)-->
+
+    <!-- smoosh -->
+    <script src="js/app.js"></script>
+    <!-- endsmoosh -->
+
+    <!--removeIf(production)-->
+    <script src="js/translations.js"></script>
+    <script src="js/controllers/headerController.js"></script>
+    <script src="js/controllers/tempController.js"></script>
+    <script src="js/controllers/motorController.js"></script>
+    <script src="js/controllers/extruderController.js"></script>
+    <script src="js/controllers/fileController.js"></script>
+    <script src="js/controllers/commandController.js"></script>
+    <script src="js/services/dataService.js"></script>
+    <!--endRemoveIf(production)-->
+</body>
+</html>

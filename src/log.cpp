@@ -1,8 +1,8 @@
 #include <log.h>
 #include <timer.h> 
 
-#define LED1 2  
-#define LED2 16 
+#define LED1 3  
+#define LED2 2 
 
 LogClass::LogClass(const Stream* duplicate = NULL, bool debug = true)
 {
@@ -26,7 +26,7 @@ void LogClass::init_flash()
 void LogClass::log(String text)
 {
   if (DEBUG)
-    Serial.println(String(GetTime() + " | " + text);
+    Serial.println(String(GetTime() + " | " + text));
     addLogToString(GetTime() + " | " + text + '\n');
 }
 

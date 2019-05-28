@@ -16,10 +16,12 @@
 #include <web.h>
 #include <websocket.h>
 #include <update.h>
-#include <mdns.h>
+#include <oled.h>
+//#include <mdnss.h>
 
 
 void setup() {
+  Oled_init();
   logger.log("================= Init started =================");
   Hardware_init();
   FS_init();
@@ -28,7 +30,7 @@ void setup() {
   Telnet_Init();
   Time_init();
   Cmd_init();
-  //Telegram_init();
+    //Telegram_init();
   Controller();
   HTTP_init();
   SSDP_init();
@@ -38,7 +40,7 @@ void setup() {
   Update_init();
   WebSocket_init();
   TimeTicker_init();
-  mDNS_init();
+  //mDNS_init();
   Config_updateSysytemParameters();
   logger.log("================= Init completed =================");
   
@@ -54,7 +56,7 @@ void loop() {
   //Telegram_loop();
   TimeTicker_loop();
   DDNS_loop();
-  mDNS_loop();
+  //mDNS_loop();
   logger.Serial_loop();
   yield();
 }

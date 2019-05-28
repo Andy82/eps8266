@@ -3,6 +3,7 @@
 #define MAX_FREE_MEM 46224
 
 void Hardware_init() {
+  delay(1000);
   logger.log("SDK version:     " + String(ESP.getSdkVersion()));
   logger.log("Boot version:    " + String(ESP.getBootVersion()));
   logger.log("Boot mode:       " + String(ESP.getBootMode()));

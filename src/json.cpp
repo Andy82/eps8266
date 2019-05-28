@@ -9,26 +9,26 @@ Json::Json(String fname) : jsonConfig("{}")
 
 // Чтение значения json
 String Json::jRead(String name) {
-  DynamicJsonBuffer jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(this->jsonConfig);
+  DynamicJsonDocument jsonBuffer(1024);
+  deserializeJson(jsonBuffer, this->jsonConfig);
   //Serial.println("jRead " + name + ":" + root[name].as<String>());
-   return root[name].as<String>();
+   return jsonBuffer[name].as<String>();
 }
 
 int Json::jReadInt(String name) {
-  DynamicJsonBuffer jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(this->jsonConfig);
+  DynamicJsonDocument  jsonBuffer(1024);
+  deserializeJson(jsonBuffer, this->jsonConfig);
   //Serial.println("jRead " + name + ":" + root[name].as<String>());
-   return root[name].as<int>();
+   return jsonBuffer[name].as<int>();
 }
 
 // Запись значения json String
 void Json::jWrite(String name, String volume) {
-  DynamicJsonBuffer jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(this->jsonConfig);
-  root[name] = volume;
+  DynamicJsonDocument  jsonBuffer(1024);
+  deserializeJson(jsonBuffer, this->jsonConfig);
+  jsonBuffer[name] = volume;
   this->jsonConfig = "";
-  root.printTo(this->jsonConfig);
+  serializeJsonPretty(jsonBuffer, this->jsonConfig);
 }
 
 void Json::jWrite(String name, int volume) {
@@ -36,20 +36,20 @@ void Json::jWrite(String name, int volume) {
 }
 
 String Json::jCreate(String &json, String name, String volume) {
-  DynamicJsonBuffer jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(json);
-  root[name] = volume;
+  DynamicJsonDocument  jsonBuffer(1024);
+  deserializeJson(jsonBuffer, this->jsonConfig);
+  jsonBuffer[name] = volume;
   json = "";
-  root.printTo(json);
+  serializeJsonPretty(jsonBuffer, json);
   return json;
 }
 
 
 void Json::Desirialize(String data){
     this->jsonConfig = data;
-    DynamicJsonBuffer jsonBuffer;
-    JsonObject& root = jsonBuffer.parseObject(data);
-    if (!root.success()) {
+    DynamicJsonDocument  jsonBuffer(1024);
+    DeserializationError desError = deserializeJson(jsonBuffer, this->jsonConfig);
+    if (!desError) {
         logger.log("ERROR: Can't parse JSON:");
     } else {
         logger.log("JSON successfully parsed");
@@ -62,17 +62,17 @@ String Json::Serialize()
 }
 
 void Json::Print(){
-    DynamicJsonBuffer jsonBuffer;
-    JsonObject& root = jsonBuffer.parseObject(this->jsonConfig);
-    root.prettyPrintTo(Serial);
+    DynamicJsonDocument  jsonBuffer(1024);
+    deserializeJson(jsonBuffer, this->jsonConfig);
+    serializeJsonPretty(jsonBuffer, Serial);
 }
 
 String Json::PrintToString()
 {
-    DynamicJsonBuffer jsonBuffer;
-    JsonObject& root = jsonBuffer.parseObject(this->jsonConfig);
+    DynamicJsonDocument  jsonBuffer(1024);
+    deserializeJson(jsonBuffer, this->jsonConfig);
     String resultString;
-    root.prettyPrintTo(resultString);
+    serializeJsonPretty(jsonBuffer, resultString);
     return resultString;
 }
 

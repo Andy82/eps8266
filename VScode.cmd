@@ -1,0 +1,1 @@
+"C:\Users\Andrei\AppData\Local\Programs\Microsoft VS Code\Code.exe" src\main.cpp .
