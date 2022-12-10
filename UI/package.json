@@ -7,7 +7,7 @@
     "cors": "^2.8.1",
     "del": "^2.2.0",
     "deprecated": "0.0.1",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "grunt": "^1.0.1",
     "grunt-angular-gettext": "^2.1.13",
